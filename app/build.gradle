@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion project.sdk_version
+    buildToolsVersion "$build_tools"
+    defaultConfig {
+        applicationId "net.treelzebub.loadinggiffragment"
+        minSdkVersion project.min_sdk
+        targetSdkVersion project.sdk_version
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:support-annotations:$support_version"
+
+    testCompile 'junit:junit:4.12'
+}
