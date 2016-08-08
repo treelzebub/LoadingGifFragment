@@ -3,7 +3,7 @@ package net.treelzebub.loadinggiffragment.blur
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.animation.LinearInterpolator
 
@@ -12,13 +12,13 @@ import android.view.animation.LinearInterpolator
  */
 class BlurAsyncTask : AsyncTask<Void, Void, Void> {
 
-    private val activity: AppCompatActivity
+    private val activity: FragmentActivity
     private val engine: BlurDialogEngine
     private val backgroundView: View
 
     private lateinit var background: Bitmap
 
-    constructor(activity: AppCompatActivity, engine: BlurDialogEngine) : super() {
+    constructor(activity: FragmentActivity, engine: BlurDialogEngine) : super() {
         this.activity       = activity
         this.engine         = engine
         this.backgroundView = activity.window.decorView

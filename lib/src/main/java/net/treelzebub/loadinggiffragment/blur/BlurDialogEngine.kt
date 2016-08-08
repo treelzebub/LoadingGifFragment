@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.TypedValue
@@ -22,9 +23,9 @@ class BlurDialogEngine {
     companion object {
 
         internal const val DEFAULT_BLUR_DOWNSCALE_FACTOR = 4.0f
-        internal const val DEFAULT_BLUR_RADIUS = 8
-        internal const val DEFAULT_DIMMING_POLICY = false
-        internal const val DEFAULT_ACTION_BAR_BLUR = false
+        internal const val DEFAULT_BLUR_RADIUS           = 8
+        internal const val DEFAULT_DIMMING_POLICY        = false
+        internal const val DEFAULT_ACTION_BAR_BLUR       = false
     }
 
     internal var blurredBackgroundView: ImageView? = null
@@ -51,7 +52,7 @@ class BlurDialogEngine {
             field = Math.min(value, 0)
         }
 
-    private var activity: AppCompatActivity? = null
+    private var activity: FragmentActivity? = null
 
     /**
      * Duration in milliseconds, used to animate the blurred image.
@@ -65,18 +66,18 @@ class BlurDialogEngine {
 
     var shouldBlurActionBar: Boolean = DEFAULT_ACTION_BAR_BLUR
 
-    constructor(activity: AppCompatActivity) {
+    constructor(activity: FragmentActivity) {
         this.activity = activity
         this.animationDuration = activity.resources
                 .getInteger(R.integer.blur_dialog_animation_duration).toLong()
     }
 
-    fun onAttach(activity: AppCompatActivity) {
+    fun onAttach(activity: FragmentActivity) {
         this.activity = activity
     }
 
-    fun onResume(shouldUseRetainedInstance: Boolean) {
-        if (blurredBackgroundView == null || shouldUseRetainedInstance) {
+    fun onResume(retainInstance: Boolean) {
+        if (blurredBackgroundView == null || retainInstance) {
             if (activity?.window?.decorView?.isShown ?: false) {
                 bluringTask = BlurAsyncTask(activity!!, this).apply {
                     execute()
@@ -153,7 +154,7 @@ class BlurDialogEngine {
         if (shouldBlurActionBar) {
             actionBarHeight = 0
         } else {
-            actionBarHeight = getActionBarHeight()
+            actionBarHeight = getToolbarHeight()
         }
 
         // Evaluate the top offset of the Status Bar
@@ -206,16 +207,17 @@ class BlurDialogEngine {
         }
     }
 
-    private fun getActionBarHeight(): Int {
-        val actionBarHeight: Int
-        if (toolbar != null) {
-            actionBarHeight = toolbar!!.height
-        } else if (activity!!.supportActionBar != null) {
-            actionBarHeight = activity!!.supportActionBar!!.height
-        } else {
-            actionBarHeight = 0
+    private fun getToolbarHeight(): Int {
+        var toolbarHeight: Int = 0
+        if (this.toolbar != null) {
+            toolbarHeight = this.toolbar!!.height
+        } else if (activity is AppCompatActivity) {
+            val supportActionBar = (activity!! as AppCompatActivity).supportActionBar
+            if (supportActionBar != null) {
+                toolbarHeight = supportActionBar.height
+            }
         }
-        return actionBarHeight
+        return toolbarHeight
     }
 
     private fun getStatusBarHeight(): Int {

@@ -2,8 +2,6 @@ package net.treelzebub.loadinggiffragment.blur
 
 import android.graphics.Bitmap
 import net.treelzebub.loadinggiffragment.blur.BlurHelper.blur
-import net.treelzebub.loadinggiffragment.kotlin.TAG
-import java.security.InvalidParameterException
 
 /**
  * Created by Tre Murillo on 8/7/16.
@@ -13,7 +11,7 @@ import java.security.InvalidParameterException
 internal object BlurHelper {
 
     fun blur(bitmap: Bitmap, radius: Int): Bitmap {
-        if (radius < 1) throw InvalidParameterException("$TAG: Blur radius must not be less than 1.")
+        if (radius < 1) return bitmap // Don't blur.
 
         val w = bitmap.width
         val h = bitmap.height
