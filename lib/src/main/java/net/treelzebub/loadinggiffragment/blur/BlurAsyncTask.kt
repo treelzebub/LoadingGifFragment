@@ -1,4 +1,4 @@
-package net.treelzebub.loadinggiffragment.fragment
+package net.treelzebub.loadinggiffragment.blur
 
 import android.graphics.Bitmap
 import android.graphics.Rect

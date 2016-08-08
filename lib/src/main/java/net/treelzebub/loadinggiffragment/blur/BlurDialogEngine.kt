@@ -1,4 +1,4 @@
-package net.treelzebub.loadinggiffragment.fragment
+package net.treelzebub.loadinggiffragment.blur
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -63,8 +63,7 @@ class BlurDialogEngine {
      */
     var toolbar: Toolbar? = null
 
-    var shouldBlurActionBar: Boolean   = false
-    var shouldUseRenderScript: Boolean = false
+    var shouldBlurActionBar: Boolean = DEFAULT_ACTION_BAR_BLUR
 
     constructor(activity: AppCompatActivity) {
         this.activity = activity
@@ -147,7 +146,7 @@ class BlurDialogEngine {
                                                                  FrameLayout.LayoutParams.MATCH_PARENT)
 
         // Overlay used to build the scaled previed and blur background.
-        var overlay: Bitmap
+        val overlay: Bitmap
 
         // Evaluate the top offset relative to the Toolbar. 0 if ActionBar should also be blurred.
         val actionBarHeight: Int
@@ -199,7 +198,7 @@ class BlurDialogEngine {
         val destRect = RectF(0f, 0f, overlay.width.toFloat(), overlay.height.toFloat())
         canvas.drawBitmap(background, srcRect, destRect, paint)
 
-        // TODO blur
+        BlurHelper.blur(overlay, blurRadius)
 
         blurredBackgroundView = ImageView(activity).apply {
             setImageDrawable(BitmapDrawable(activity!!.resources, overlay))
