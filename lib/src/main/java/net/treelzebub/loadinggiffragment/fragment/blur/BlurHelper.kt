@@ -1,7 +1,7 @@
-package net.treelzebub.loadinggiffragment.blur
+package net.treelzebub.loadinggiffragment.fragment.blur
 
 import android.graphics.Bitmap
-import net.treelzebub.loadinggiffragment.blur.BlurHelper.blur
+import net.treelzebub.loadinggiffragment.fragment.blur.BlurHelper.blur
 
 /**
  * Created by Tre Murillo on 8/7/16.

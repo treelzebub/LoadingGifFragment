@@ -1,4 +1,4 @@
-package net.treelzebub.loadinggiffragment.blur
+package net.treelzebub.loadinggiffragment.fragment.blur
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

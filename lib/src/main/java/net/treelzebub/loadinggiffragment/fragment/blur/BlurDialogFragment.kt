@@ -1,4 +1,4 @@
-package net.treelzebub.loadinggiffragment.blur
+package net.treelzebub.loadinggiffragment.fragment.blur
 
 import android.content.Context
 import android.content.DialogInterface
@@ -90,5 +90,4 @@ open class BlurDialogFragment : DialogFragment() {
     open fun shouldDim(): Boolean {
         return BlurDialogEngine.DEFAULT_DIMMING_POLICY
     }
-    
 }
