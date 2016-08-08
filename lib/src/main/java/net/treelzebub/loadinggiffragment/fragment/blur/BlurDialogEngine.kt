@@ -33,8 +33,6 @@ class BlurDialogEngine {
 
     private var bluringTask: BlurAsyncTask? = null
 
-    var isDebugEnabled = false
-
     /**
      * Factor used to downscale background. High quality isn't necessary since the background is
      * blurred. Must be at least 1.0. If exactly 1.0, no downscaling will be applied.
@@ -124,7 +122,7 @@ class BlurDialogEngine {
         } ?: removeBlurredView()
     }
 
-    fun removeBlurredView() {
+    private fun removeBlurredView() {
         blurredBackgroundView?.let {
             val parent = it.parent as ViewGroup?
             parent?.removeView(it)
@@ -146,7 +144,7 @@ class BlurDialogEngine {
         blurredBackgroundLayoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                                                                  FrameLayout.LayoutParams.MATCH_PARENT)
 
-        // Overlay used to build the scaled previed and blur background.
+        // Overlay used to build the scaled preview and blur background.
         val overlay: Bitmap
 
         // Evaluate the top offset relative to the Toolbar. 0 if ActionBar should also be blurred.
@@ -250,4 +248,3 @@ class BlurDialogEngine {
         return retval
     }
 }
-
