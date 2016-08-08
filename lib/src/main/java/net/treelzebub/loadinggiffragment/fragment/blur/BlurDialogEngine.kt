@@ -64,7 +64,7 @@ class BlurDialogEngine {
      */
     var toolbar: Toolbar? = null
 
-    var shouldBlurActionBar: Boolean = DEFAULT_ACTION_BAR_BLUR
+    var shouldBlurToolbar: Boolean = DEFAULT_ACTION_BAR_BLUR
 
     constructor(activity: FragmentActivity) {
         this.activity = activity
@@ -151,7 +151,7 @@ class BlurDialogEngine {
 
         // Evaluate the top offset relative to the Toolbar. 0 if ActionBar should also be blurred.
         val actionBarHeight: Int
-        if (shouldBlurActionBar) {
+        if (shouldBlurToolbar) {
             actionBarHeight = 0
         } else {
             actionBarHeight = getToolbarHeight()

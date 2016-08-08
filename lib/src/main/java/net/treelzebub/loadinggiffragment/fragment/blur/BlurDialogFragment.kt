@@ -33,7 +33,7 @@ open class BlurDialogFragment : DialogFragment() {
         }
         blurEngine!!.blurRadius          = getBlurRadius()
         blurEngine!!.downScaleFactor     = getDownScaleFactor()
-        blurEngine!!.shouldBlurActionBar = shouldBlurActionBar()
+        blurEngine!!.shouldBlurToolbar   = shouldBlurToolbar()
         shouldDim                        = shouldDim()
     }
 
@@ -79,7 +79,7 @@ open class BlurDialogFragment : DialogFragment() {
         return BlurDialogEngine.DEFAULT_BLUR_RADIUS
     }
 
-    open fun shouldBlurActionBar(): Boolean {
+    open fun shouldBlurToolbar(): Boolean {
         return BlurDialogEngine.DEFAULT_ACTION_BAR_BLUR
     }
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_gif_width">164dp</dimen>
+    <dimen name="default_gif_height">164dp</dimen>
+    <dimen name="default_gif_margin">12dp</dimen>
+</resources>
