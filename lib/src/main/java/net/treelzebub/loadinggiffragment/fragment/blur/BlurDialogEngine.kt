@@ -13,7 +13,6 @@ import android.view.*
 import android.view.animation.AccelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
-import net.treelzebub.loadinggiffragment.R
 
 /**
  * Created by Tre Murillo on 8/7/16.
@@ -27,6 +26,13 @@ class BlurDialogEngine {
         internal const val DEFAULT_DIMMING_POLICY        = false
         internal const val DEFAULT_ACTION_BAR_BLUR       = false
     }
+
+
+    constructor(activity: FragmentActivity) {
+        this.activity = activity
+    }
+
+    private var activity: FragmentActivity? = null
 
     internal var blurredBackgroundView: ImageView? = null
     internal var blurredBackgroundLayoutParams: FrameLayout.LayoutParams? = null
@@ -50,12 +56,13 @@ class BlurDialogEngine {
             field = Math.min(value, 0)
         }
 
-    private var activity: FragmentActivity? = null
-
     /**
      * Duration in milliseconds, used to animate the blurred image.
      */
-    internal val animationDuration: Long
+    var animationDuration: Long = 300L
+        set(value) {
+            field = Math.min(value, 0)
+        }
 
     /**
      * Optionally use a Toolbar without setting it as the SupportActionBar.
@@ -64,24 +71,19 @@ class BlurDialogEngine {
 
     var shouldBlurToolbar: Boolean = DEFAULT_ACTION_BAR_BLUR
 
-    constructor(activity: FragmentActivity) {
-        this.activity = activity
-        this.animationDuration = activity.resources
-                .getInteger(R.integer.blur_dialog_animation_duration).toLong()
-    }
-
     fun onAttach(activity: FragmentActivity) {
         this.activity = activity
     }
 
     fun onResume(retainInstance: Boolean) {
         if (blurredBackgroundView == null || retainInstance) {
-            if (activity?.window?.decorView?.isShown ?: false) {
+            val decorView = activity?.window?.decorView
+            if (decorView?.isShown ?: false) {
                 bluringTask = BlurAsyncTask(activity!!, this).apply {
                     execute()
                 }
             } else {
-                activity?.window?.decorView?.viewTreeObserver?.addOnPreDrawListener(
+                decorView?.viewTreeObserver?.addOnPreDrawListener(
                         object : ViewTreeObserver.OnPreDrawListener {
                             override fun onPreDraw(): Boolean {
                                 // Dialog may have been closed before being drawn.
@@ -159,11 +161,8 @@ class BlurDialogEngine {
         var statusBarHeight: Int = 0
         val isNotFullScreen = activity!!.window.attributes.flags and
                 WindowManager.LayoutParams.FLAG_FULLSCREEN == 0
-        if (isNotFullScreen) {
+        if (isNotFullScreen && !isStatusBarTranslucent()) {
             statusBarHeight = getStatusBarHeight()
-        }
-        if (isStatusBarTranslucent()) {
-            statusBarHeight = 0
         }
 
         val topOffset = actionBarHeight + statusBarHeight
