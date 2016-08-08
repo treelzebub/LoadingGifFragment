@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import net.treelzebub.loadinggiffragment.R
 import net.treelzebub.loadinggiffragment.fragment.blur.BlurDialogFragment
-import net.treelzebub.loadinggiffragment.view.GifImageView
+import pl.droidsonroids.gif.GifImageView
 
 /**
  * Created by Tre Murillo on 8/7/16.
