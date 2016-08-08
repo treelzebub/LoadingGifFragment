@@ -13,6 +13,7 @@ import android.view.*
 import android.view.animation.AccelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
+import net.treelzebub.loadinggiffragment.R
 
 /**
  * Created by Tre Murillo on 8/7/16.
@@ -27,12 +28,18 @@ class BlurDialogEngine {
         internal const val DEFAULT_ACTION_BAR_BLUR       = false
     }
 
-
     constructor(activity: FragmentActivity) {
         this.activity = activity
+        this.animationDuration = activity.resources
+                .getInteger(R.integer.blur_dialog_animation_duration).toLong()
     }
 
     private var activity: FragmentActivity? = null
+
+    /**
+     * Duration in milliseconds, used to animate the blurred image.
+     */
+    private val animationDuration: Long
 
     internal var blurredBackgroundView: ImageView? = null
     internal var blurredBackgroundLayoutParams: FrameLayout.LayoutParams? = null
@@ -52,14 +59,6 @@ class BlurDialogEngine {
      * Radius used for fast blur algorithm. May not be negative.
      */
     var blurRadius = DEFAULT_BLUR_RADIUS
-        set(value) {
-            field = Math.min(value, 0)
-        }
-
-    /**
-     * Duration in milliseconds, used to animate the blurred image.
-     */
-    var animationDuration: Long = 300L
         set(value) {
             field = Math.min(value, 0)
         }
@@ -141,7 +140,6 @@ class BlurDialogEngine {
     internal fun blur(background: Bitmap, view: View) {
         if (activity == null) return
 
-        val start = System.currentTimeMillis()
         // Get the layout params of the original ImageView so we can match its parent.
         blurredBackgroundLayoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                                                                  FrameLayout.LayoutParams.MATCH_PARENT)
