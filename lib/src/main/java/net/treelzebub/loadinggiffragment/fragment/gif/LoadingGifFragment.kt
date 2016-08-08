@@ -41,6 +41,7 @@ open class LoadingGifFragment : BlurDialogFragment() {
             gradient.cornerRadius = this.cornerRadius
             gifImageView = _dialog!!.findViewById(R.id.gif_image_view) as GifImageView
             val _id = getDrawableResId()
+            // Get an arbitrary pixel from the source and set it as the background
             setBackgroundColor(BitmapFactory.decodeResource(resources, _id).getPixel(5, 5))
             gifImageView.setImageResource(_id)
             gradient.setColor(ContextCompat.getColor(context, R.color.default_bg))
