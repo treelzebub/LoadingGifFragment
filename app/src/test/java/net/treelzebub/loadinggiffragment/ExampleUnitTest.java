@@ -1,4 +1,4 @@
-package net.treelzebub.loadinggiffragment;
+package net.treelzebub.app;
 
 import org.junit.Test;
 
