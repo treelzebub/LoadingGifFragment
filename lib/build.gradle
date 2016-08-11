@@ -31,3 +31,43 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 }
+
+bintray {
+
+    user = 'treelzebub'
+    key = '2deddf964e746ec003aeb2f9f87bcdd330ed56bb'
+
+    pkg {
+        repo = 'generic'
+        name = 'loadinggiffragment'
+        userOrg = 'treelzebub'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/treelzebub/LoadingGifFragment.git'
+
+        version {
+            name = '0.8'
+            desc = 'A Kotlin library that provides quick and easy loading overlays with GIF animations.'
+            released  = new Date()
+            vcsTag = '0.8'
+        }
+    }
+
+    publishedGroupId = 'net.treelzebub'
+    libraryName = 'LoadingGifFragment'
+    artifact = 'lib'
+
+    libraryDescription = 'A Kotlin library that provides quick and easy loading overlays with GIF animations.'
+
+    siteUrl = 'https://github.com/treelzebub/LoadingGifFragment'
+    gitUrl = 'https://github.com/treelzebub/LoadingGifFragment.git'
+
+    libraryVersion = '0.8'
+
+    developerId = 'treelzebub'
+    developerName = 'Tre Murillo'
+    developerEmail = 'treelzebub@gmail.com'
+
+    licensesName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
